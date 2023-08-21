@@ -1,3 +1,5 @@
+#ifndef MAIN_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,9 +14,12 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
+#define MAX_PATH_LENGTH 1024
+
 void executeEnv();
 void clearScreen();
 void execmd(char **argv);
 char *get_location(char *command);
-void execute_cd(char *path);
-ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream);
+void execute_cd(const char *path);
+
+#endif 
