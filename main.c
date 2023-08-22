@@ -63,9 +63,23 @@ int main(int ac, char **argv)
         }
         argv[i] = NULL;
 	 if (strcmp(argv[0], "exit") == 0) {
-            printf("Exiting SimpleShell\n");
-            break;
-        }
+		if(argv[1]){
+		int exitstatus = atoi(argv[1]);
+		exit(exitstatus);
+		}else{
+           	exit(0);
+                }
+        } else if (strcmp(argv[0], "cd") == 0) {
+                execute_cd(argv[1]);
+         } else if (strcmp(argv[0], "setenv") == 0 && argv[1] && argv[2]){
+                 if(setenv(argv[1], argv[2], 1) != 0){
+                        perror("setenv error");
+                }
+         } else if (strcmp(argv[0], "unsetenv") == 0 && argv[1]){
+                 if(unsetenv(argv[1]) != 0){
+                        perror("unsetenv error");
+                }
+         } else {
        	 /* execute the command */
         pid = fork();
        	
@@ -75,25 +89,21 @@ int main(int ac, char **argv)
         }
 
         if (pid == 0) {
-            // This code is executed by the child process
-            execmd(argv);  // Execute the command
+            
 	    if (strcmp(argv[0], "env") == 0) {
             executeEnv();
-       	}
-	     if (strcmp(argv[0], "clear") == 0) {
+       	}  else if (strcmp(argv[0], "clear") == 0) {
             clearScreen();
-        }
-	     if (strcmp(argv[0], "cd") == 0 && argv[1]) {
-		execute_cd(argv[1]);	
+	 } else{
+		execmd(argv); 
 	}
-            perror("exec failed");  // If exec fails
-            exit(1);  // Exit child process with error
+     	    perror("exec failed");  
+            exit(1); 
         } else {
-            // This code is executed by the parent process
             int status;
-            wait(&status);  // Wait for the child process to complete
-            // Optionally handle exit status or errors
+            wait(&status);
         }
+	 }
     }
     /* free up allocated memory */
     free(lineptr_copy);
