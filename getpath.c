@@ -37,29 +37,27 @@ char *get_location(char *command){
 
                 return (file_path);
             }
-            else{
+		else{
                 /* free up the file_path memory so we can check for another path*/
-                free(file_path);
-                path_token = strtok(NULL, ":");
+		free(file_path);
+		path_token = strtok(NULL, ":");
 
-            }
+		}
         
-        }
+	}
 
-        /* if we don't get any file_path that exists for the command, we return NULL but we need to free up memory for path_copy */ 
-        free(path_copy);
-
-        /* before we exit without luck, let's see if the command itself is a file_path that exists */
-        if (stat(command, &buffer) == 0)
+	/* if we don't get any file_path that exists for the command, we return NULL but we need to free up memory for path_copy */ 
+	free(path_copy);
+	
+	/* before we exit without luck, let's see if the command itself is a file_path that exists */
+	if (stat(command, &buffer) == 0)
         {
-            return (command);
-        }
+	       	return (command);
+	}
 
 
-        return (NULL);
-    
+	return (NULL);
     }
 
-
-    return (NULL);
+	return (NULL);
 }
