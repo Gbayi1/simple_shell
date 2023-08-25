@@ -1,4 +1,4 @@
-#include "holberton.h"
+#include "main.h"
 
 /**
  * swap_char - swaps | and & for non-printed chars
@@ -9,26 +9,26 @@
  */
 char *swap_char(char *input, int bool)
 {
-	int i;
+	int j;
 
 	if (bool == 0)
 	{
-		for (i = 0; input[i]; i++)
+		for (j = 0; input[i]; i++)
 		{
-			if (input[i] == '|')
+			if (input[j] == '|')
 			{
-				if (input[i + 1] != '|')
-					input[i] = 16;
+				if (input[j + 1] != '|')
+					input[j] = 16;
 				else
-					i++;
+					j++;
 			}
 
-			if (input[i] == '&')
+			if (input[j] == '&')
 			{
-				if (input[i + 1] != '&')
-					input[i] = 12;
+				if (input[j + 1] != '&')
+					input[j] = 12;
 				else
-					i++;
+					j++;
 			}
 		}
 	}

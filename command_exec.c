@@ -1,4 +1,4 @@
-#include "holberton.h"
+#include "main.h"
 
 /**
  * is_cdir - checks ":" if is in the current directory.
@@ -6,18 +6,18 @@
  * @i: type int pointer of index.
  * Return: 1 if the path is searchable in the cd, 0 otherwise.
  */
-int is_cdir(char *path, int *i)
+int is_cdir(char *path, int *n)
 {
-	if (path[*i] == ':')
+	if (path[*n] == ':')
 		return (1);
 
-	while (path[*i] != ':' && path[*i])
+	while (path[*n] != ':' && path[*n])
 	{
-		*i += 1;
+		*n += 1;
 	}
 
-	if (path[*i])
-		*i += 1;
+	if (path[*n])
+		*n += 1;
 
 	return (0);
 }
